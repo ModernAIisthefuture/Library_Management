@@ -1,30 +1,48 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
 
+<div class="form-container">
 
-<h1>
-Add / Update Book
-</h1>
+    <div class="form-card">
 
+        <div class="form-header">
+            <h2>
+                {% if object %}
+                    ✏ Edit Book
+                {% else %}
+                    📚 Add New Book
+                {% endif %}
+            </h2>
 
-<form method="POST" enctype="multipart/form-data">
+            <p>
+                Fill in the details below to save the book.
+            </p>
+        </div>
 
-{% csrf_token %}
+        <form method="POST" enctype="multipart/form-data">
 
+            {% csrf_token %}
 
-{{ form.as_p }}
+            {{ form.as_p }}
 
+            <div class="form-buttons">
 
-<button type="submit">
+                <button type="submit" class="save-btn">
+                    💾 Save Book
+                </button>
 
-Save
+                <a href="{% url 'book_list' %}" class="cancel-btn">
+                    Cancel
+                </a>
 
-</button>
+            </div>
 
+        </form>
 
-</form>
+    </div>
 
+</div>
 
 {% endblock %}
+

@@ -1,113 +1,79 @@
-<table border="1">
+<table class="book-table">
 
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Status</th>
+            <th style="width:280px;">Actions</th>
+        </tr>
+    </thead>
 
-<tr>
+    <tbody>
 
-<th>
-Title
-</th>
+    {% for book in books %}
 
+        <tr>
 
-<th>
-Author
-</th>
+            <td>{{ book.title }}</td>
 
+            <td>{{ book.author }}</td>
 
-<th>
-Status
-</th>
+            <td>
+                {% if book.available %}
+                    <span class="status available">
+                        Available
+                    </span>
+                {% else %}
+                    <span class="status borrowed">
+                        Borrowed by {{ book.borrower }}
+                    </span>
+                {% endif %}
+            </td>
 
+            <td>
 
-<th>
-Action
-</th>
+                <div class="action-buttons">
 
+                    <a href="{% url 'book_update' book.id %}" class="btn-action btn-edit">
+                        ✏ Edit
+                    </a>
 
-</tr>
+                    <a href="{% url 'book_delete' book.id %}" class="btn-action btn-delete">
+                        🗑 Delete
+                    </a>
 
+                    {% if book.available %}
 
-{% for book in books %}
+                        <a href="{% url 'borrow_book' book.id %}" class="btn-action btn-borrow">
+                            📖 Borrow
+                        </a>
 
-<tr>
+                    {% else %}
 
-<td>
-{{ book.title }}
-</td>
+                        <a href="{% url 'return_book' book.id %}" class="btn-action btn-return">
+                            ↩ Return
+                        </a>
 
+                    {% endif %}
 
-<td>
-{{ book.author }}
-</td>
+                </div>
 
+            </td>
 
-<td>
+        </tr>
 
+    {% empty %}
 
-{% if book.available %}
+        <tr>
+            <td colspan="4" style="text-align:center;">
+                No books found.
+            </td>
+        </tr>
 
-Available
+    {% endfor %}
 
-{% else %}
-
-Borrowed by {{ book.borrower }}
-
-{% endif %}
-
-
-</td>
-
-
-<td>
-
-
-<a href="{% url 'book_update' book.id %}">
-Edit
-</a>
-
-
-<a href="{% url 'book_delete' book.id %}">
-Delete
-</a>
-
-
-{% if book.available %}
-
-<a href="{% url 'borrow_book' book.id %}">
-Borrow
-</a>
-
-
-{% else %}
-
-<a href="{% url 'return_book' book.id %}">
-Return
-</a>
-
-
-{% endif %}
-
-
-</td>
-
-
-</tr>
-
-
-{% empty %}
-
-
-<tr>
-
-<td colspan="4">
-
-No books found
-
-</td>
-
-</tr>
-
-
-{% endfor %}
-
+    </tbody>
 
 </table>
+

@@ -16,7 +16,9 @@ from .models import Book
 from .forms import BookForm
 
 
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def dashboard(request):
 
     books = Book.objects.all()
@@ -88,7 +90,7 @@ class BookDeleteView(LoginRequiredMixin, DeleteView):
     )
 
 
-
+@login_required
 def borrow_book(request, pk):
 
     book = get_object_or_404(
@@ -108,7 +110,7 @@ def borrow_book(request, pk):
     )
 
 
-
+@login_required
 def return_book(request, pk):
 
     book = get_object_or_404(

@@ -1,37 +1,44 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
 
+<div class="books-page">
 
-<h1>
-Books
-</h1>
+    <div class="page-header">
 
+        <div>
+            <h1>📚 Library Books</h1>
+            <p class="page-subtitle">
+                Browse, search, borrow, and manage books.
+            </p>
+        </div>
 
-<input 
-type="text"
-name="q"
-placeholder="Search books..."
-hx-get="{% url 'search_books' %}"
-hx-target="#results"
-hx-trigger="keyup changed delay:500ms"
->
+        <a href="{% url 'book_create' %}" class="add-book-btn">
+            + Add New Book
+        </a>
 
+    </div>
 
-<br><br>
+    <div class="search-card">
 
+        <input
+            type="text"
+            name="q"
+            class="search-input"
+            placeholder="🔍 Search books by title..."
+            hx-get="{% url 'search_books' %}"
+            hx-target="#results"
+            hx-trigger="keyup changed delay:400ms"
+        >
 
-<a href="{% url 'book_create' %}">
-Add Book
-</a>
+    </div>
 
+    <div id="results" class="table-card">
 
-<div id="results">
+        {% include 'library/partials/search_results.html' %}
 
-{% include 'library/partials/search_results.html' %}
+    </div>
 
 </div>
-
 
 {% endblock %}

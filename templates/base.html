@@ -28,37 +28,26 @@ Library Management
 Library System
 </h2>
 
-
-<a href="{% url 'dashboard' %}">
-Dashboard
-</a>
-
-
 {% if user.is_authenticated %}
 
-<a href="{% url 'book_list' %}">
-Books
-</a>
+<span class="welcome">
+    Welcome, <strong>{{ user.username }}</strong>
+</span>
 
+<a href="{% url 'dashboard' %}">Dashboard</a>
 
-<a href="{% url 'logout' %}">
-Logout
-</a>
+<a href="{% url 'book_list' %}">Books</a>
 
+<a href="{% url 'logout' %}">Logout</a>
 
 {% else %}
 
-<a href="{% url 'login' %}">
-Login
-</a>
+<a href="{% url 'login' %}">Login</a>
 
-
-<a href="{% url 'register' %}">
-Register
-</a>
-
+<a href="{% url 'register' %}">Register</a>
 
 {% endif %}
+
 
 
 </nav>

@@ -1,41 +1,70 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
 
-<html>
+{% block content %}
 
-<head>
+<div class="register-container">
 
-<title>Register</title>
+    <div class="register-card">
 
-</head>
+        <h2>Create Account</h2>
 
+        <p class="subtitle">
+            Register to access the Library Management System.
+        </p>
 
-<body>
+        {% if form.errors %}
+        <div class="error-message">
+            Please correct the errors below.
+        </div>
+        {% endif %}
 
+        <form method="POST">
 
-<h2>Create Account</h2>
+            {% csrf_token %}
 
+            <div class="form-group">
+                <label for="{{ form.username.id_for_label }}">
+                    Username
+                </label>
+                {{ form.username }}
+            </div>
 
-<form method="POST">
+            <div class="form-group">
+                <label for="{{ form.email.id_for_label }}">
+                    Email Address
+                </label>
+                {{ form.email }}
+            </div>
 
-{% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.password.id_for_label }}">
+                    Password
+                </label>
+                {{ form.password }}
+            </div>
 
+            <div class="form-group">
+                <label for="{{ form.confirm_password.id_for_label }}">
+                    Confirm Password
+                </label>
+                {{ form.confirm_password }}
+            </div>
 
-{{ form.as_p }}
+            <button type="submit" class="register-btn">
+                Create Account
+            </button>
 
+        </form>
 
-<button type="submit">
-Register
-</button>
+        <p class="login-link">
+            Already have an account?
+            <a href="{% url 'login' %}">
+                Login here
+            </a>
+        </p>
 
+    </div>
 
-</form>
+</div>
 
-
-<a href="{% url 'login' %}">
-Already have account? Login
-</a>
-
-
-</body>
-
-</html>
+{% endblock %}

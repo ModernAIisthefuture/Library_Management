@@ -1,22 +1,109 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
 
+<div class="dashboard">
 
-<h1>
-Dashboard
-</h1>
+    <div class="dashboard-header">
+        <div>
+            <h1>📚 Library Dashboard</h1>
+            <p>Welcome, <strong>{{ user.username }}</strong>!</p>
+        </div>
 
+        <a href="{% url 'book_create' %}" class="dashboard-btn">
+            + Add New Book
+        </a>
+    </div>
 
-<h3>
-Total Books: {{ books.count }}
-</h3>
+    <div class="stats-grid">
 
+        <div class="stat-card">
+            <div class="stat-icon">📖</div>
+            <div>
+                <h2>{{ books.count }}</h2>
+                <p>Total Books</p>
+            </div>
+        </div>
 
-<a href="{% url 'book_create' %}">
-Add New Book
-</a>
+        <div class="stat-card">
+            <div class="stat-icon">✅</div>
+            <div>
+                <h2>{{ books|length }}</h2>
+                <p>Books in Library</p>
+            </div>
+        </div>
 
+        <div class="stat-card">
+            <div class="stat-icon">📚</div>
+            <div>
+                <a href="{% url 'book_list' %}" class="stat-link">
+                    View All Books →
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="recent-books">
+
+        <div class="section-header">
+            <h2>Recently Added Books</h2>
+
+            <a href="{% url 'book_list' %}">
+                Manage Books
+            </a>
+        </div>
+
+        <table class="book-table">
+
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+            {% for book in books|slice:":5" %}
+
+                <tr>
+
+                    <td>{{ book.title }}</td>
+
+                    <td>{{ book.author }}</td>
+
+                    <td>
+                        {% if book.available %}
+                            <span class="status available">
+                                Available
+                            </span>
+                        {% else %}
+                            <span class="status borrowed">
+                                Borrowed
+                            </span>
+                        {% endif %}
+                    </td>
+
+                </tr>
+
+            {% empty %}
+
+                <tr>
+                    <td colspan="3" style="text-align:center;">
+                        No books available.
+                    </td>
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
 
 {% endblock %}
