@@ -1,3 +1,5 @@
 Django
 django-htmx
 Pillow
+gunicorn
+whitenoise
